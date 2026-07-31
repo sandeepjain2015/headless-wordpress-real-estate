@@ -1,0 +1,36 @@
+.entry-content .wp-block-columns {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 2rem;
+}
+
+.entry-content .wp-block-column {
+  flex: 1;
+}
+
+.entry-content p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.entry-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.entry-content h2,
+.entry-content h3,
+.entry-content h4 {
+  margin-bottom: 1rem;
+}
+
+.entry-content ul {
+  padding-left: 20px;
+}
+
+@media (max-width: 768px) {
+  .entry-content .wp-block-columns {
+    flex-direction: column;
+  }
+}
