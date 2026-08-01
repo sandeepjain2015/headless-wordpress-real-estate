@@ -10360,3 +10360,19 @@ nav[aria-label="breadcrumb"] li:before {
       .site-footer .social li a:hover {
         background: #00204a;
         color: #fff; }
+        .hero-slide-item {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* or 700px */
+  min-height: 700px;
+}
+
+.hero-slide-item img {
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
