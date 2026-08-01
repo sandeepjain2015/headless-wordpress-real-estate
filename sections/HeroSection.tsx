@@ -1,6 +1,7 @@
 import { fetchGraphQL } from "@/lib/wordpress";
 import { GET_HERO_QUERY } from "@/graphql/hero";
 import HeroSlider from "@/components/HeroSlider";
+
 type HeroImage = {
   sourceUrl: string;
   altText?: string;
@@ -25,15 +26,15 @@ type HeroResponse = {
 };
 
 export default async function HeroSection() {
-   const data = await fetchGraphQL<HeroResponse>(GET_HERO_QUERY);
+  const data = await fetchGraphQL<HeroResponse>(GET_HERO_QUERY);
 
   const hero = data.page.homepage;
 
-  const slides = [
+  const slides: HeroImage[] = [
     hero.slide1?.node,
     hero.slide2?.node,
     hero.slide3?.node,
-  ].filter(Boolean);
+  ].filter((slide): slide is HeroImage => slide !== undefined);
 
   return <HeroSlider slides={slides} />;
 }
