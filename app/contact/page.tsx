@@ -50,13 +50,13 @@ export default async function ContactPage() {
                 <div className="email mt-4">
                   <i className="icon-envelope"></i>
                   <h4 className="mb-2">Email</h4>
-                  <p>info@example.com</p>
+                  <p><a href="mailto:mr.sandeepmcscet@gmail.com">mr.sandeepmcscet@gmail.com</a></p>
                 </div>
 
                 <div className="phone mt-4">
                   <i className="icon-phone"></i>
                   <h4 className="mb-2">Phone</h4>
-                  <p>+91 98765 43210</p>
+                  <p><a href="tel:+918287660417">+91 8287660417</a></p>
                 </div>
               </div>
             </div>
