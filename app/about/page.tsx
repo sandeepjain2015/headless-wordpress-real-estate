@@ -52,8 +52,7 @@ console.log('Fetched page data:', data);
               <div className="feature-text">
                 <h3 className="heading">Quality properties</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Explore carefully selected properties in Tikamgarh that match different needs and budgets.
                 </p>
               </div>
             </div>
@@ -63,10 +62,9 @@ console.log('Fetched page data:', data);
                 <span className="icon-person"></span>
               </span>
               <div className="feature-text">
-                <h3 className="heading">Top rated agents</h3>
+                <h3 className="heading">Trusted Local Agents</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Connect with experienced local agents who provide reliable guidance throughout your property journey.
                 </p>
               </div>
             </div>
@@ -78,8 +76,7 @@ console.log('Fetched page data:', data);
               <div className="feature-text">
                 <h3 className="heading">Easy and safe</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Enjoy a simple and transparent process for finding, buying, or selling your property.
                 </p>
               </div>
             </div>
@@ -104,8 +101,7 @@ console.log('Fetched page data:', data);
               <div className="feature-text">
                 <h3 className="heading">Quality properties</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Explore carefully selected properties in Tikamgarh that match different needs and budgets.
                 </p>
               </div>
             </div>
@@ -115,10 +111,9 @@ console.log('Fetched page data:', data);
                 <span className="icon-person"></span>
               </span>
               <div className="feature-text">
-                <h3 className="heading">Top rated agents</h3>
+                <h3 className="heading">Trusted Local Agents</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Connect with experienced local agents who provide reliable guidance throughout your property journey.
                 </p>
               </div>
             </div>
@@ -130,8 +125,7 @@ console.log('Fetched page data:', data);
               <div className="feature-text">
                 <h3 className="heading">Easy and safe</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Enjoy a simple and transparent process for finding, buying, or selling your property.
                 </p>
               </div>
             </div>
@@ -160,7 +154,7 @@ console.log('Fetched page data:', data);
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">2917</span></span
+                ><span className="countup text-primary">0</span></span
               >
               <span className="caption text-black-50"># of Buy Properties</span>
             </div>
@@ -172,7 +166,7 @@ console.log('Fetched page data:', data);
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">3918</span></span
+                ><span className="countup text-primary">0</span></span
               >
               <span className="caption text-black-50"># of Sell Properties</span>
             </div>
@@ -184,7 +178,7 @@ console.log('Fetched page data:', data);
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">38928</span></span
+                ><span className="countup text-primary">6</span></span
               >
               <span className="caption text-black-50"># of All Properties</span>
             </div>
@@ -196,7 +190,7 @@ console.log('Fetched page data:', data);
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">1291</span></span
+                ><span className="countup text-primary">3</span></span
               >
               <span className="caption text-black-50"># of Agents</span>
             </div>

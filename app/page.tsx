@@ -20,10 +20,8 @@ export default function Home() {
               <span className="flaticon-house"></span>
               <h3 className="mb-3">Our Properties</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates, accusamus.
+                Explore residential and commercial properties available across Tikamgarh.
               </p>
-              <p><a href="#" className="learn-more">Learn More</a></p>
             </div>
           </div>
           <div className="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
@@ -31,10 +29,8 @@ export default function Home() {
               <span className="flaticon-building"></span>
               <h3 className="mb-3">Property for Sale</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates, accusamus.
+                Find houses, plots, and commercial properties that match your needs and budget.
               </p>
-              <p><a href="#" className="learn-more">Learn More</a></p>
             </div>
           </div>
           <div className="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
@@ -42,10 +38,8 @@ export default function Home() {
               <span className="flaticon-house-3"></span>
               <h3 className="mb-3">Real Estate Agent</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates, accusamus.
+                Connect with local property experts for reliable guidance and assistance.
               </p>
-              <p><a href="#" className="learn-more">Learn More</a></p>
             </div>
           </div>
           <div className="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
@@ -53,10 +47,8 @@ export default function Home() {
               <span className="flaticon-house-1"></span>
               <h3 className="mb-3">House for Sale</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates, accusamus.
+                Discover houses for sale in Tikamgarh at different locations and price ranges.
               </p>
-              <p><a href="#" className="learn-more">Learn More</a></p>
             </div>
           </div>
         </div>

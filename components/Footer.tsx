@@ -8,7 +8,7 @@ export default function Footer() {
           <div className="col-lg-4">
             <div className="widget">
               <h3>Contact</h3>
-              <address> tikamgarh, India</address>
+              <address> Tikamgarh, India</address>
               <ul className="list-unstyled links">
                 <li><Link href="tel://918287660417">+918287660417</Link></li>
                 <li><Link href="tel://917838366235">+917838366235</Link></li>
