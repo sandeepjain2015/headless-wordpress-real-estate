@@ -32,9 +32,7 @@ export default async function AgentSection() {
               Our Agents
             </h2>
             <p className="text-black-50">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-              enim pariatur similique debitis vel nisi qui reprehenderit totam?
-              Quod maiores.
+              Meet our dedicated team of real estate agents who are committed to helping you find the perfect property in Tikamgarh.
             </p>
           </div>
         </div>

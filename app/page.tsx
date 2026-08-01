@@ -65,8 +65,7 @@ export default function Home() {
               Let's find home that's perfect for you
             </h2>
             <p className="text-black-50">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-              enim pariatur similique debitis vel nisi qui reprehenderit.
+              Discover the right property in Tikamgarh with trusted listings, local expertise, and guidance at every step.
             </p>
           </div>
         </div>
@@ -82,10 +81,9 @@ export default function Home() {
                 <span className="icon-home2"></span>
               </span>
               <div className="feature-text">
-                <h3 className="heading">2M Properties</h3>
+                <h3 className="heading">12 Properties</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Discover the right property in Tikamgarh with trusted listings, local expertise, and guidance at every step.
                 </p>
               </div>
             </div>
@@ -97,8 +95,7 @@ export default function Home() {
               <div className="feature-text">
                 <h3 className="heading">Top Rated Agents</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Connect with experienced local agents who provide reliable guidance throughout your property journey.
                 </p>
               </div>
             </div>
@@ -110,8 +107,7 @@ export default function Home() {
               <div className="feature-text">
                 <h3 className="heading">Legit Properties</h3>
                 <p className="text-black-50">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum iste.
+                  Enjoy a simple and transparent process for finding, buying, or selling your property.
                 </p>
               </div>
             </div>
@@ -125,7 +121,7 @@ export default function Home() {
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">3298</span></span
+                ><span className="countup text-primary">0</span></span
               >
               <span className="caption text-black-50"># of Buy Properties</span>
             </div>
@@ -137,7 +133,7 @@ export default function Home() {
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">2181</span></span
+                ><span className="countup text-primary">0</span></span
               >
               <span className="caption text-black-50"># of Sell Properties</span>
             </div>
@@ -149,7 +145,7 @@ export default function Home() {
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">9316</span></span
+                ><span className="countup text-primary">6</span></span
               >
               <span className="caption text-black-50"># of All Properties</span>
             </div>
@@ -161,7 +157,7 @@ export default function Home() {
           >
             <div className="counter-wrap mb-5 mb-lg-0">
               <span className="number"
-                ><span className="countup text-primary">7191</span></span
+                ><span className="countup text-primary">3</span></span
               >
               <span className="caption text-black-50"># of Agents</span>
             </div>
