@@ -5,6 +5,7 @@ import {
   submitAgentApplication,
   type AgentApplicationData,
 } from "@/actions/agent";
+
 type AgentFormProps = {
   onSuccess?: () => void;
 };
@@ -22,25 +23,31 @@ export default function AgentForm({ onSuccess }: AgentFormProps) {
 
     if (!file) return;
 
-    // Validate image type
     if (!file.type.startsWith("image/")) {
       alert("Please select a valid image.");
+      event.target.value = "";
       return;
     }
 
-    // Validate image size - 2MB
+    // Maximum 2MB
     if (file.size > 2 * 1024 * 1024) {
       alert("Image size should be less than 2MB.");
+      event.target.value = "";
       return;
     }
 
     setImage(file);
 
+    // Remove previous preview URL
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
     const previewUrl = URL.createObjectURL(file);
+
     setImagePreview(previewUrl);
   };
 
-  // Clean up preview URL
   useEffect(() => {
     return () => {
       if (imagePreview) {
@@ -50,65 +57,74 @@ export default function AgentForm({ onSuccess }: AgentFormProps) {
   }, [imagePreview]);
 
   const handleSubmit = async (
-  event: React.FormEvent<HTMLFormElement>
-) => {
-  event.preventDefault();
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
 
-  const form = event.currentTarget;
-
-  setIsSubmitting(true);
-  setSuccessMessage("");
-
-  try {
     const form = event.currentTarget;
-const formData = new FormData(form);
+    const formData = new FormData(form);
 
-const imageFile = formData.get("agentImage");
+    setIsSubmitting(true);
+    setSuccessMessage("");
 
-const data: AgentApplicationData = {
-  name: String(formData.get("name") || ""),
-  email: String(formData.get("email") || ""),
-  phone: String(formData.get("phone") || ""),
-  description: String(formData.get("description") || ""),
-  facebook: String(formData.get("facebook") || ""),
-  twitter: String(formData.get("twitter") || ""),
-  linkedin: String(formData.get("linkedin") || ""),
-  instagram: String(formData.get("instagram") || ""),
-  image: imageFile instanceof File ? imageFile : null,
-};
+    try {
+      const data: AgentApplicationData = {
+        name: String(formData.get("name") || ""),
+        email: String(formData.get("email") || ""),
+        phone: String(formData.get("phone") || ""),
+        description: String(
+          formData.get("description") || ""
+        ),
+        facebook: String(
+          formData.get("facebook") || ""
+        ),
+        twitter: String(
+          formData.get("twitter") || ""
+        ),
+        linkedin: String(
+          formData.get("linkedin") || ""
+        ),
+        instagram: String(
+          formData.get("instagram") || ""
+        ),
 
-const result = await submitAgentApplication(data);
+        // Important: pass File to Server Action
+        image,
+      };
 
-    if (result.applyAsAgent.success) {
-      setSuccessMessage(
-        "Your application has been submitted successfully."
+      const result = await submitAgentApplication(data);
+
+      if (result.applyAsAgent.success) {
+        setSuccessMessage(
+          "Your application has been submitted successfully."
+        );
+
+        form.reset();
+
+        setImage(null);
+        setImagePreview(null);
+
+        setTimeout(() => {
+          onSuccess?.();
+        }, 2000);
+
+        return;
+      }
+
+      alert(result.applyAsAgent.message);
+    } catch (error) {
+      console.error(
+        "Agent application error:",
+        error
       );
 
-      // Reset form
-      form.reset();
-
-      // Clear image
-      setImage(null);
-      setImagePreview(null);
-
-      // Close modal after 2 seconds
-     setTimeout(() => {
-    onSuccess?.();
-  }, 2000);
-
-
-      return;
+      alert(
+        "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
-
-    alert(result.applyAsAgent.message);
-  } catch (error) {
-    console.error("Agent application error:", error);
-
-    alert("Something went wrong. Please try again.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   return (
     <form
@@ -128,7 +144,10 @@ const result = await submitAgentApplication(data);
 
         {/* Agent Image */}
         <div className="col-12 mb-4">
-          <label htmlFor="agentImage" className="form-label">
+          <label
+            htmlFor="agentImage"
+            className="form-label"
+          >
             Agent Image
           </label>
 
@@ -161,7 +180,10 @@ const result = await submitAgentApplication(data);
 
         {/* Name */}
         <div className="col-md-6 mb-3">
-          <label htmlFor="name" className="form-label">
+          <label
+            htmlFor="name"
+            className="form-label"
+          >
             Name *
           </label>
 
@@ -177,7 +199,10 @@ const result = await submitAgentApplication(data);
 
         {/* Email */}
         <div className="col-md-6 mb-3">
-          <label htmlFor="email" className="form-label">
+          <label
+            htmlFor="email"
+            className="form-label"
+          >
             Email *
           </label>
 
@@ -193,7 +218,10 @@ const result = await submitAgentApplication(data);
 
         {/* Phone */}
         <div className="col-md-6 mb-3">
-          <label htmlFor="phone" className="form-label">
+          <label
+            htmlFor="phone"
+            className="form-label"
+          >
             Phone
           </label>
 
@@ -206,9 +234,12 @@ const result = await submitAgentApplication(data);
           />
         </div>
 
-        {/* About You */}
+        {/* Description */}
         <div className="col-12 mb-3">
-          <label htmlFor="description" className="form-label">
+          <label
+            htmlFor="description"
+            className="form-label"
+          >
             About You
           </label>
 
@@ -223,7 +254,10 @@ const result = await submitAgentApplication(data);
 
         {/* Facebook */}
         <div className="col-md-6 mb-3">
-          <label htmlFor="facebook" className="form-label">
+          <label
+            htmlFor="facebook"
+            className="form-label"
+          >
             Facebook URL
           </label>
 
@@ -238,7 +272,10 @@ const result = await submitAgentApplication(data);
 
         {/* Twitter */}
         <div className="col-md-6 mb-3">
-          <label htmlFor="twitter" className="form-label">
+          <label
+            htmlFor="twitter"
+            className="form-label"
+          >
             Twitter / X URL
           </label>
 
@@ -253,7 +290,10 @@ const result = await submitAgentApplication(data);
 
         {/* LinkedIn */}
         <div className="col-md-6 mb-3">
-          <label htmlFor="linkedin" className="form-label">
+          <label
+            htmlFor="linkedin"
+            className="form-label"
+          >
             LinkedIn URL
           </label>
 
@@ -268,7 +308,10 @@ const result = await submitAgentApplication(data);
 
         {/* Instagram */}
         <div className="col-md-6 mb-3">
-          <label htmlFor="instagram" className="form-label">
+          <label
+            htmlFor="instagram"
+            className="form-label"
+          >
             Instagram URL
           </label>
 

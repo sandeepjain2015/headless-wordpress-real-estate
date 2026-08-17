@@ -24,12 +24,24 @@ export async function fetchGraphQL<T>(
 
   const result = await response.json();
 
-  if (result.errors) {
-    console.error("GraphQL Errors:", result.errors);
-    throw new Error("GraphQL request failed.");
+  console.log("GraphQL HTTP status:", response.status);
+  console.log("GraphQL response:", JSON.stringify(result, null, 2));
+
+  if (!response.ok) {
+    throw new Error(
+      `GraphQL HTTP error: ${response.status} ${response.statusText}`
+    );
   }
 
-  console.log("Fetched GraphQL data:", result.data);
+  if (result.errors?.length) {
+    console.error("GraphQL Errors:", JSON.stringify(result.errors, null, 2));
+
+    throw new Error(
+      result.errors
+        .map((error: { message?: string }) => error.message)
+        .join(", ")
+    );
+  }
 
   return result.data as T;
 }

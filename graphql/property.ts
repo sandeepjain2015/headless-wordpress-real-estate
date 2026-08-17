@@ -55,6 +55,13 @@ query GetProperty($slug: ID!) {
           twitter
           linkedin
           instagram
+          image{
+           node {
+    id
+    sourceUrl
+    altText
+  }
+          }
         }
       }
     }

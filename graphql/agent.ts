@@ -8,6 +8,7 @@ export const APPLY_AS_AGENT_MUTATION = `
     $twitter: String
     $linkedin: String
     $instagram: String
+    $imageId: Int
   ) {
     applyAsAgent(
       input: {
@@ -19,6 +20,7 @@ export const APPLY_AS_AGENT_MUTATION = `
         twitter: $twitter
         linkedin: $linkedin
         instagram: $instagram
+        imageId: $imageId
       }
     ) {
       success

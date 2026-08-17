@@ -9,6 +9,11 @@ const nextConfig = {
         pathname: "/tikamgarh-properties/wp-content/uploads/**",
       },
       {
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/tikamgarh_properties/wp-content/uploads/**",
+      },
+      {
         protocol: "https",
         hostname: "secure.gravatar.com",
       },
