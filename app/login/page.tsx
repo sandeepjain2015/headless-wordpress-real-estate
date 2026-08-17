@@ -27,37 +27,15 @@ export default function LoginPage() {
         password
       );
 
-      console.log(
-        "Login successful:",
-        result.login.user
-      );
+      
 
       /**
        * Temporary:
        * Check login response first.
        */
-      if (result.login.authToken) {
-
-        console.log(
-          "Auth Token:",
-          result.login.authToken
-        );
-
-        console.log(
-          "Refresh Token:",
-          result.login.refreshToken
-        );
-
-        console.log(
-          "User:",
-          result.login.user
-        );
-
-        /**
-         * Next step:
-         * Store tokens securely in HTTP-only cookies.
-         */
-      }
+      if (result.success) {
+  window.location.href = "/agent-dashboard";
+}
 
     } catch (error) {
 

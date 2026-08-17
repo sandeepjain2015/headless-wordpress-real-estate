@@ -68,3 +68,14 @@ query GetProperty($slug: ID!) {
   }
 }
 `;
+export const SUBMIT_PROPERTY_MUTATION = `
+  mutation SubmitPropertyForReview(
+    $input: SubmitPropertyForReviewInput!
+  ) {
+    submitPropertyForReview(input: $input) {
+      success
+      message
+      propertyId
+    }
+  }
+`;

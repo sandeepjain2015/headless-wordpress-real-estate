@@ -3,15 +3,16 @@ export const LOGIN_MUTATION = `
     login(input: $input) {
       authToken
       refreshToken
+
       user {
         id
         name
         username
         email
+
         roles {
           nodes {
             name
-            slug
           }
         }
       }

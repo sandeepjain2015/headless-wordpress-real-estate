@@ -71,13 +71,6 @@ export default function Footer() {
 
         <div className="row mt-5">
           <div className="col-12 text-center">
-            {/* <!-- 
-              **==========
-              NOTE: 
-              Please don't remove this copyright link unless you buy the license here https://untree.co/license/  
-              **==========
-            --> */}
-
             <p>
               Copyright &copy;
               {new Date().getFullYear()}

@@ -1,6 +1,7 @@
 export async function fetchGraphQL<T>(
   query: string,
-  variables: Record<string, unknown> = {}
+  variables: Record<string, unknown> = {},
+  token?: string
 ): Promise<T> {
   const API_URL = process.env.WP_GRAPHQL_URL;
 
@@ -8,24 +9,38 @@ export async function fetchGraphQL<T>(
     throw new Error("WP_GRAPHQL_URL is not defined.");
   }
 
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
+  /**
+   * Add JWT authentication when token is available.
+   */
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   const response = await fetch(API_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify({
       query,
       variables,
     }),
-    next: {
-      revalidate: 60,
-    },
+    cache: "no-store",
   });
 
   const result = await response.json();
 
-  console.log("GraphQL HTTP status:", response.status);
-  console.log("GraphQL response:", JSON.stringify(result, null, 2));
+  console.log(
+    "GraphQL HTTP status:",
+    response.status
+  );
+
+  console.log(
+    "GraphQL response:",
+    JSON.stringify(result, null, 2)
+  );
 
   if (!response.ok) {
     throw new Error(
@@ -34,11 +49,18 @@ export async function fetchGraphQL<T>(
   }
 
   if (result.errors?.length) {
-    console.error("GraphQL Errors:", JSON.stringify(result.errors, null, 2));
+
+    console.error(
+      "GraphQL Errors:",
+      JSON.stringify(result.errors, null, 2)
+    );
 
     throw new Error(
       result.errors
-        .map((error: { message?: string }) => error.message)
+        .map(
+          (error: { message?: string }) =>
+            error.message
+        )
         .join(", ")
     );
   }
