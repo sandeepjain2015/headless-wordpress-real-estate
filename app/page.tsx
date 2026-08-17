@@ -5,6 +5,7 @@ import PropertySection from "@/sections/PopularProperties/PropertySection";
 import TestimonialSection from "@/sections/Testimonial/TestimonialSection";
 import HeroSection from "@/sections/HeroSection";
 import AgentSection from "@/sections/AgentSection";
+import AgentCTA from "@/components/AgentCTA/AgentCTA";
 export default function Home() {
   return (
     <>
@@ -166,23 +167,7 @@ export default function Home() {
       </div>
     </div>
 
-    <div className="section">
-      <div className="row justify-content-center footer-cta" data-aos="fade-up">
-        <div className="col-lg-7 mx-auto text-center">
-          <h2 className="mb-4">Be a part of our growing real state agents</h2>
-          <p>
-            <a
-              href="#"
-              target="_blank"
-              className="btn btn-primary text-white py-3 px-4"
-              >Apply for Real Estate agent</a
-            >
-          </p>
-        </div>
-        {/* <!-- /.col-lg-7 --> */}
-      </div>
-      {/* <!-- /.row --> */}
-    </div>
+    <AgentCTA />
     <AgentSection />
     
     </>
