@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { loginUser } from "@/actions/auth";
-
+import PageHero from "@/components/PageHero";
 export default function LoginPage() {
 
   const [username, setUsername] = useState("");
@@ -78,6 +78,16 @@ export default function LoginPage() {
   };
 
   return (
+    <>
+    <PageHero
+            title={"Agent Login"}
+            backgroundImage={''}
+            breadcrumbs={[
+              { label: "Home", href: "/" },
+              { label: "Agent Login" },
+            ]}
+          />
+    
     <section className="section">
         <div className="container">
       <div className="row justify-content-center">
@@ -170,5 +180,6 @@ export default function LoginPage() {
       </div>
 </div>
     </section>
+    </>
   );
 }
