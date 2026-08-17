@@ -26,19 +26,9 @@ export default function Footer() {
               <ul className="list-unstyled float-start links">
                 <li><Link href="/about">About us</Link></li>
                 <li><Link href="/services">Services</Link></li>
-                <li><Link href="/vision">Vision</Link></li>
-                <li><Link href="/mission">Mission</Link></li>
-                <li><Link href="/terms">Terms</Link></li>
-                <li><Link href="/privacy">Privacy</Link></li>
+                <li><Link href="/properties">Properties</Link></li>
               </ul>
-              <ul className="list-unstyled float-start links">
-                <li><Link href="/partners">Partners</Link></li>
-                <li><Link href="/business">Business</Link></li>
-                <li><Link href="/careers">Careers</Link></li>
-                <li><Link href="/blog">Blog</Link></li>
-                <li><Link href="/faq">FAQ</Link></li>
-                <li><Link href="/creative">Creative</Link></li>
-              </ul>
+              
             </div>
             {/* <!-- /.widget --> */}
           </div>
