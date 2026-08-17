@@ -78,8 +78,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="section">
-
+    <section className="section">
+        <div className="container">
       <div className="row justify-content-center">
 
         <div className="col-lg-5">
@@ -168,7 +168,7 @@ export default function LoginPage() {
         </div>
 
       </div>
-
-    </div>
+</div>
+    </section>
   );
 }
