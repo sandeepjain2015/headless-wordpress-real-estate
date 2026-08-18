@@ -1,163 +1,168 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { loginUser } from "@/actions/auth";
 import PageHero from "@/components/PageHero";
 export default function LoginPage() {
+  const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (
+  async function handleSubmit(
     event: FormEvent<HTMLFormElement>
-  ) => {
-
+  ) {
     event.preventDefault();
 
-    setLoading(true);
     setError("");
+    setLoading(true);
 
     try {
-
-      const result = await loginUser(
+      const user = await loginUser(
         username,
         password
       );
 
-      
+    
 
       /**
-       * Temporary:
-       * Check login response first.
+       * Agent login successful.
        */
-      if (result.success) {
-  window.location.href = "/agent-dashboard";
-}
+      const isAgent =
+        user.roles?.nodes?.some(
+          (role) =>
+            role.name === "agent"
+        );
+
+      if (isAgent) {
+        router.push(
+          "/agent-dashboard"
+        );
+      } else {
+        setError(
+          "You are not authorized as an agent."
+        );
+      }
 
     } catch (error) {
-
       console.error(
         "Login error:",
         error
       );
 
       setError(
-        "Invalid username or password."
+        error instanceof Error
+          ? error.message
+          : "Login failed. Please try again."
       );
 
     } finally {
-
       setLoading(false);
-
     }
-  };
+  }
 
   return (
     <>
-    <PageHero
-            title={"Agent Login"}
-            backgroundImage={''}
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "Agent Login" },
-            ]}
-          />
-    
-    <section className="section">
-        <div className="container">
-      <div className="row justify-content-center">
+      <PageHero
+        title={"Agent Login"}
+        backgroundImage={""}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Login" },
+        ]}
+      />
+    <main className="container py-5">
 
-        <div className="col-lg-5">
+      <div
+        className="mx-auto border rounded p-4"
+        style={{
+          maxWidth: "526px",
+        }}
+      >
 
-          <div className="card p-4">
+        <h1 className="text-center mb-4">
+          Agent Login
+        </h1>
 
-            <h2 className="mb-4 text-center">
-              Agent Login
-            </h2>
+        {error && (
+          <div className="alert alert-danger">
+            {error}
+          </div>
+        )}
 
-            {error && (
-              <div className="alert alert-danger">
-                {error}
-              </div>
-            )}
+        <form
+          onSubmit={handleSubmit}
+        >
 
-            <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label
+              htmlFor="username"
+              className="form-label"
+            >
+              Username
+            </label>
 
-              {/* Username */}
-              <div className="mb-3">
+            <input
+              id="username"
+              type="text"
+              className="form-control"
+              value={username}
+              onChange={(event) =>
+                setUsername(
+                  event.target.value
+                )
+              }
+              required
+              autoComplete="username"
+            />
+          </div>
 
-                <label
-                  htmlFor="username"
-                  className="form-label"
-                >
-                  Username
-                </label>
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="form-label"
+            >
+              Password
+            </label>
 
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  className="form-control"
-                  value={username}
-                  onChange={(event) =>
-                    setUsername(event.target.value)
-                  }
-                  required
-                />
+            <input
+              id="password"
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(event) =>
+                setPassword(
+                  event.target.value
+                )
+              }
+              required
+              autoComplete="current-password"
+            />
+          </div>
 
-              </div>
+          <div className="text-center">
 
-              {/* Password */}
-              <div className="mb-3">
-
-                <label
-                  htmlFor="password"
-                  className="form-label"
-                >
-                  Password
-                </label>
-
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="form-control"
-                  value={password}
-                  onChange={(event) =>
-                    setPassword(event.target.value)
-                  }
-                  required
-                />
-
-              </div>
-
-              {/* Submit */}
-              <div className="text-center mt-4">
-
-                <button
-                  type="submit"
-                  className="btn btn-primary text-white py-3 px-5"
-                  disabled={loading}
-                >
-                  {loading
-                    ? "Logging in..."
-                    : "Login"}
-                </button>
-
-              </div>
-
-            </form>
+            <button
+              type="submit"
+              className="btn btn-primary px-5"
+              disabled={loading}
+            >
+              {loading
+                ? "Logging in..."
+                : "Login"}
+            </button>
 
           </div>
 
-        </div>
+        </form>
 
       </div>
-</div>
-    </section>
+
+    </main>
     </>
   );
 }

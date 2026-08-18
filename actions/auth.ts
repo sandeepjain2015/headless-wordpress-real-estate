@@ -1,20 +1,23 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 import { fetchGraphQL } from "@/lib/wordpress";
 import { LOGIN_MUTATION } from "@/graphql/auth";
 
-export type LoginResponse = {
+type LoginResponse = {
   login: {
     authToken: string;
     refreshToken: string;
     user: {
       id: string;
+      databaseId: number;
       name: string;
       username: string;
       email: string;
+      avatar: {
+    url: string;
+  };
       roles: {
         nodes: {
           name: string;
@@ -27,20 +30,21 @@ export type LoginResponse = {
 export async function loginUser(
   username: string,
   password: string
-) {
+): Promise<LoginResponse["login"]["user"]> {
+
   const result = await fetchGraphQL<LoginResponse>(
     LOGIN_MUTATION,
     {
-      input: {
-        clientMutationId: "agent-login",
-        username,
-        password,
-      },
+      username,
+      password,
     }
   );
 
-  const { authToken, refreshToken, user } =
-    result.login;
+  const {
+    authToken,
+    refreshToken,
+    user,
+  } = result.login;
 
   const cookieStore = await cookies();
 
@@ -49,7 +53,8 @@ export async function loginUser(
     authToken,
     {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure:
+        process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
     }
@@ -60,7 +65,8 @@ export async function loginUser(
     refreshToken,
     {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure:
+        process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
     }
@@ -71,14 +77,12 @@ export async function loginUser(
     JSON.stringify(user),
     {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure:
+        process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
     }
   );
 
-  return {
-    success: true,
-    user,
-  };
+  return user;
 }

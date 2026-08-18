@@ -23,11 +23,11 @@ type Props = {
 };
 
 export default function PropertyCard({ property }: Props) {
-  console.log("PROPERTY card data:", property);
+  
 
   const image =
     property?.featuredImage?.node?.sourceUrl || "/images/img_1.jpg";
-console.log("IMAGE:", image);
+
   return (
     <div className="property-item mb-30">
       <Link href={`/properties/${property.slug}`} className="img">

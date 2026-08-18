@@ -8,7 +8,7 @@ export default async function AboutPage() {
 const data = await fetchGraphQL<PageResponse>(GET_PAGE, {
   uri: "about",
 });
-console.log('Fetched page data:', data);
+
   return (
     <>
       <PageHero

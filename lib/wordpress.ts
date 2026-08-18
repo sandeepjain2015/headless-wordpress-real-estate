@@ -32,38 +32,53 @@ export async function fetchGraphQL<T>(
 
   const result = await response.json();
 
-  console.log(
-    "GraphQL HTTP status:",
-    response.status
-  );
+  
 
-  console.log(
-    "GraphQL response:",
-    JSON.stringify(result, null, 2)
-  );
-
+  /**
+   * HTTP error.
+   */
   if (!response.ok) {
     throw new Error(
       `GraphQL HTTP error: ${response.status} ${response.statusText}`
     );
   }
 
+  /**
+   * GraphQL errors.
+   */
   if (result.errors?.length) {
-
     console.error(
       "GraphQL Errors:",
-      JSON.stringify(result.errors, null, 2)
+      JSON.stringify(
+        result.errors,
+        null,
+        2
+      )
     );
 
-    throw new Error(
+    const errorMessage =
       result.errors
         .map(
-          (error: { message?: string }) =>
-            error.message
+          (error: {
+            message?: string;
+            extensions?: {
+              debugMessage?: string;
+            };
+          }) => {
+            return (
+              error.extensions?.debugMessage ||
+              error.message ||
+              "Unknown GraphQL error"
+            );
+          }
         )
-        .join(", ")
-    );
+        .join(", ");
+
+    throw new Error(errorMessage);
   }
 
+  /**
+   * Return GraphQL data.
+   */
   return result.data as T;
 }

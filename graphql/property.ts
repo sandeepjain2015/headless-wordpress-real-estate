@@ -79,3 +79,28 @@ export const SUBMIT_PROPERTY_MUTATION = `
     }
   }
 `;
+export const MY_PROPERTIES_QUERY = `
+  query MyProperties($authorId: ID!) {
+    properties(
+      first: 50
+      where: {
+        authorIn: [$authorId]
+      }
+    ) {
+      nodes {
+        databaseId
+        title
+        slug
+        status
+        date
+
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+    }
+  }
+`;

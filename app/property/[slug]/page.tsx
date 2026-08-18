@@ -15,12 +15,11 @@ type Props = {
 
 export default async function PropertyPage({ params }: Props) {
   const { slug } = await params;
-console.log("Fetching property with slug:", slug); // Debugging line to check the slug
+
   const data = await fetchGraphQL<PropertyResponse>(GET_PROPERTY_QUERY, {
       slug: slug,
     });
     
-console.log("Property Data:", data); // Debugging line to check the fetched data
   if (!data?.property) {
     notFound();
   }

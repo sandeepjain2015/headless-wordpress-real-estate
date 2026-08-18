@@ -21,7 +21,7 @@ type AgentsResponse = {
 };
 export default async function AgentSection() {
   const data = await fetchGraphQL<AgentsResponse>(GET_AGENTS_QUERY);
-  console.log("Fetched and passed agents data:", data); // Log the fetched data for debugging
+  
 
   return (
     <div className="section section-5 bg-light">

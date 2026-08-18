@@ -4,7 +4,9 @@ import { cookies } from "next/headers";
 
 import { fetchGraphQL } from "@/lib/wordpress";
 import { SUBMIT_PROPERTY_MUTATION } from "@/graphql/property";
-
+import { MY_PROPERTIES_QUERY } from "@/graphql/property";
+import { authenticatedGraphQL } from "@/graphql/authenticatedGraphQL";
+import { redirect } from "next/navigation";
 export type PropertyApplicationData = {
   title: string;
   content: string;
@@ -59,15 +61,7 @@ async function uploadMedia(
 
   const responseText = await response.text();
 
-  console.log(
-    "Media API status:",
-    response.status
-  );
-
-  console.log(
-    "Media API response:",
-    responseText
-  );
+  
 
   if (!response.ok) {
     throw new Error(
@@ -120,4 +114,75 @@ export async function submitProperty(
     },
     token
   );
+}
+export type AgentProperty = {
+  databaseId: number;
+
+  title: string;
+
+  slug: string;
+
+  status: string;
+
+  date: string;
+
+  featuredImage: {
+    node: {
+      sourceUrl: string;
+
+      altText: string | null;
+    } | null;
+  } | null;
+};
+
+export type MyPropertiesResponse = {
+  properties: {
+    nodes: AgentProperty[];
+  };
+};
+export async function getMyProperties(): Promise<MyPropertiesResponse> {
+  const cookieStore = await cookies();
+
+  const token =
+    cookieStore.get("wp_auth_token")?.value;
+
+  if (!token) {
+    //redirect to login page if not logged in
+    redirect("/login");
+  }
+
+  const userCookie =
+    cookieStore.get("wp_user")?.value;
+
+  
+
+  if (!userCookie) {
+    throw new Error(
+      "User information not found."
+    );
+  }
+
+  const user = JSON.parse(userCookie);
+
+  
+
+  const agentId = Number(
+    user.databaseId
+  );
+
+  
+
+  
+
+  const result =
+    await authenticatedGraphQL<MyPropertiesResponse>(
+      MY_PROPERTIES_QUERY,
+      {
+        authorId: agentId,
+      }
+    );
+
+  
+
+  return result;
 }

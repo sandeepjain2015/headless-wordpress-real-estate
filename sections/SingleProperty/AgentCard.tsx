@@ -9,7 +9,7 @@ export default function AgentCard({ agent }: Props) {
   if (!agent) return null;
 
   const details = agent.userDetails;
-console.log("Agent Details:", details); // Debugging line to check agent details
+
   return (
    <div className="d-block agent-box p-5">
 
