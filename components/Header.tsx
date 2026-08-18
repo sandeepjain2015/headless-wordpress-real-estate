@@ -22,7 +22,7 @@ export default function Header() {
               className="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
             >
               <li className="active"><Link href="/">Home</Link></li>
-              <li className="has-children">
+              <li className="has-children checkagain">
                 <Link href="/properties">Properties</Link>
                 <ul className="dropdown">
                   <li><Link href="/agent-dashboard/properties/new">Add new property</Link></li>
