@@ -11,7 +11,7 @@ export default async function LoginPage() {
   
     const userCookie =
       cookieStore.get("wp_user")?.value;
-  
+  console.log("User Cookie:", userCookie); // Debugging line to check the user cookie
     if (userCookie) {
       redirect("/agent-dashboard");
     }
