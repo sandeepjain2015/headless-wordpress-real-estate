@@ -1,11 +1,20 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { loginUser } from "@/actions/auth";
 import PageHero from "@/components/PageHero";
-export default function LoginPage() {
+import { cookies } from "next/headers";
+export default async function LoginPage() {
+  const cookieStore = await cookies();
+  
+    const userCookie =
+      cookieStore.get("wp_user")?.value;
+  
+    if (userCookie) {
+      redirect("/agent-dashboard");
+    }
   const router = useRouter();
 
   const [username, setUsername] = useState("");
