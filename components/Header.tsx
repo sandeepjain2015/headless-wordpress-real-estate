@@ -26,11 +26,13 @@ export default function Header() {
                 <Link href="/properties">Properties</Link>
                 <ul className="dropdown">
                   <li><Link href="/agent-dashboard/properties/new">Add new property</Link></li>
+                  <li><Link href="/agent-dashboard">Agent Dashboard</Link></li>
                 </ul>
               </li>
               <li><Link href="/services">Services</Link></li>
               <li><Link href="/about">About</Link></li>
               <li><Link href="/contact">Contact Us</Link></li>
+              <li><Link href="/login">Login</Link></li>
             </ul>
 
             <a
