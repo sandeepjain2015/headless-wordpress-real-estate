@@ -10376,3 +10376,112 @@ nav[aria-label="breadcrumb"] li:before {
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
 }
+/* =========================================
+   Tikamgarh Properties Header
+========================================= */
+
+.site-nav {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.site-nav .menu-bg-wrap {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(6, 35, 63, 0.08);
+}
+
+.site-navigation {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  padding: 8px 28px;
+}
+
+
+/* Logo */
+
+.property-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.property-logo-image {
+  width: 165px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+
+/* Desktop Navigation */
+
+.property-menu {
+  display: flex !important;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+}
+
+.property-menu > li {
+  margin: 0 !important;
+}
+
+.property-menu > li > a {
+  color: #52606d !important;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 14px !important;
+  transition: all 0.2s ease;
+}
+
+.property-menu > li > a:hover {
+  color: #06233f !important;
+}
+
+
+/* Active Menu */
+
+.property-menu > li.active > a {
+  color: #06233f !important;
+  font-weight: 600;
+}
+
+
+/* Dropdown */
+
+.property-menu .dropdown {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(6, 35, 63, 0.12);
+}
+
+
+/* Login */
+
+.property-menu > li:last-child > a {
+  color: #06233f !important;
+}
+
+
+/* Mobile */
+
+@media (max-width: 991px) {
+
+  .site-nav {
+    padding-top: 12px;
+  }
+
+  .site-navigation {
+    min-height: 76px;
+    padding: 8px 18px;
+  }
+
+  .property-logo-image {
+    width: 145px;
+  }
+
+}
