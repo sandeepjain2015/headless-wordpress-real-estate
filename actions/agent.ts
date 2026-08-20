@@ -13,6 +13,7 @@ export type AgentApplicationData = {
   linkedin: string;
   instagram: string;
   image: File | null;
+  turnstileToken: string;
 };
 
 export type AgentApplicationResponse = {
@@ -23,22 +24,95 @@ export type AgentApplicationResponse = {
 };
 
 /**
+ * Verify Cloudflare Turnstile token.
+ */
+async function verifyTurnstile(
+  token: string
+): Promise<boolean> {
+  const secret =
+    process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secret) {
+    console.error(
+      "TURNSTILE_SECRET_KEY is not defined."
+    );
+
+    throw new Error(
+      "Turnstile secret key is not configured."
+    );
+  }
+
+  try {
+    const response = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          secret,
+          response: token,
+        }),
+
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      console.error(
+        "Turnstile API error:",
+        response.status,
+        response.statusText
+      );
+
+      return false;
+    }
+
+    const result = await response.json();
+
+    console.log(
+      "Turnstile verification:",
+      result
+    );
+
+    return result.success === true;
+
+  } catch (error) {
+    console.error(
+      "Turnstile verification error:",
+      error
+    );
+
+    return false;
+  }
+}
+
+/**
  * Upload image to WordPress Media Library.
  */
 async function uploadAgentImage(
   image: File
 ): Promise<number> {
 
-  const WP_SITE_URL = process.env.WP_SITE_URL;
+  const WP_SITE_URL =
+    process.env.WP_SITE_URL;
 
   if (!WP_SITE_URL) {
-    throw new Error("WP_SITE_URL is not defined.");
+    throw new Error(
+      "WP_SITE_URL is not defined."
+    );
   }
 
-  const WP_MEDIA_AUTH = process.env.WP_MEDIA_AUTH;
+  const WP_MEDIA_AUTH =
+    process.env.WP_MEDIA_AUTH;
 
   if (!WP_MEDIA_AUTH) {
-    throw new Error("WP_MEDIA_AUTH is not defined.");
+    throw new Error(
+      "WP_MEDIA_AUTH is not defined."
+    );
   }
 
   const imageBuffer = Buffer.from(
@@ -51,8 +125,12 @@ async function uploadAgentImage(
       method: "POST",
 
       headers: {
-        Authorization: `Basic ${WP_MEDIA_AUTH}`,
-        "Content-Disposition": `attachment; filename="${image.name}"`,
+        Authorization:
+          `Basic ${WP_MEDIA_AUTH}`,
+
+        "Content-Disposition":
+          `attachment; filename="${image.name}"`,
+
         "Content-Type": image.type,
       },
 
@@ -61,7 +139,8 @@ async function uploadAgentImage(
   );
 
   if (!response.ok) {
-    const errorText = await response.text();
+    const errorText =
+      await response.text();
 
     console.error(
       "WordPress Media Upload Error:",
@@ -73,7 +152,8 @@ async function uploadAgentImage(
     );
   }
 
-  const media = await response.json();
+  const media =
+    await response.json();
 
   if (!media.id) {
     throw new Error(
@@ -84,13 +164,53 @@ async function uploadAgentImage(
   return Number(media.id);
 }
 
-
 /**
  * Submit Agent Application.
  */
 export async function submitAgentApplication(
   input: AgentApplicationData
 ): Promise<AgentApplicationResponse> {
+
+  /**
+   * ----------------------------------------
+   * 1. Validate Turnstile token
+   * ----------------------------------------
+   */
+  if (!input.turnstileToken) {
+    return {
+      applyAsAgent: {
+        success: false,
+        message:
+          "Please complete the security verification.",
+      },
+    };
+  }
+
+  /**
+   * ----------------------------------------
+   * 2. Verify Turnstile server-side
+   * ----------------------------------------
+   */
+  const isTurnstileValid =
+    await verifyTurnstile(
+      input.turnstileToken
+    );
+
+  if (!isTurnstileValid) {
+    return {
+      applyAsAgent: {
+        success: false,
+        message:
+          "Security verification failed. Please try again.",
+      },
+    };
+  }
+
+  /**
+   * ----------------------------------------
+   * 3. Turnstile verified
+   * ----------------------------------------
+   */
 
   let imageId: number | null = null;
 
@@ -99,9 +219,10 @@ export async function submitAgentApplication(
    */
   if (input.image) {
 
-    imageId = await uploadAgentImage(
-      input.image
-    );
+    imageId =
+      await uploadAgentImage(
+        input.image
+      );
 
   }
 
