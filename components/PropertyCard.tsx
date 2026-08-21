@@ -25,10 +25,13 @@ export default function PropertyCard({
         <Image
           src={image}
           alt={title}
-          width={600}
-          height={400}
-          style={{
-    width: "100%",
+          width={400}
+  height={267}
+  sizes="(max-width: 768px) 100vw, 400px"
+  quality={70}
+  className="w-100"
+  style={{
+    aspectRatio: "3 / 2",
     objectFit: "cover",
   }}
         />
