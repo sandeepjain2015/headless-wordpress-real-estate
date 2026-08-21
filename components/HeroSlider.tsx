@@ -28,16 +28,17 @@ export default function HeroSlider({
           <SwiperSlide key={index}>
             <div className="hero-slide-item position-relative">
   <Image
-    src={slide.sourceUrl}
-    alt={slide.altText || "Hero"}
-    fill
-    priority={index === 0}
-    sizes="100vw"
-    quality={75}
-    style={{
-      objectFit: "cover",
-    }}
-  />
+  src={slide.sourceUrl}
+  alt={slide.altText || "Hero"}
+  fill
+  preload={index === 0}
+  fetchPriority={index === 0 ? "high" : "auto"}
+  sizes="100vw"
+  quality={75}
+  style={{
+    objectFit: "cover",
+  }}
+/>
 
   <div className="overlay"></div>
 </div>
