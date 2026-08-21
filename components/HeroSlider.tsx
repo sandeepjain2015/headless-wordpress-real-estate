@@ -32,6 +32,7 @@ export default function HeroSlider({
   alt={slide.altText || "Hero"}
   fill
   preload={index === 0}
+  loading={index === 0 ? "eager" : "lazy"}
   fetchPriority={index === 0 ? "high" : undefined}
   sizes="100vw"
   quality={75}
