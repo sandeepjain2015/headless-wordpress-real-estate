@@ -32,13 +32,13 @@ export default function HeroSlider({
   alt={slide.altText || "Hero"}
   fill
   preload={index === 0}
-  fetchPriority={index === 0 ? "high" : "auto"}
+  fetchPriority={index === 0 ? "high" : undefined}
   sizes="100vw"
   quality={75}
   style={{
     objectFit: "cover",
   }}
-  className="hero-slide-image"
+  className="hero-slide-image-not-lazy"
 />
 
   <div className="overlay"></div>
