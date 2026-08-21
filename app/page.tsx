@@ -73,7 +73,7 @@ export default function Home() {
         <div className="row justify-content-between mb-5">
           <div className="col-lg-7 mb-5 mb-lg-0 order-lg-2">
             <div className="img-about dots">
-              <img src="images/hero_bg_3.jpg" alt="Image" className="img-fluid" />
+              <img src="images/hero_bg_3-optimized.webp" alt="Image" className="img-fluid" />
             </div>
           </div>
           <div className="col-lg-4">
