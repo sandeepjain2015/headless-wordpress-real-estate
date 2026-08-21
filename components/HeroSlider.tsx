@@ -38,6 +38,7 @@ export default function HeroSlider({
   style={{
     objectFit: "cover",
   }}
+  className="hero-slide-image"
 />
 
   <div className="overlay"></div>
