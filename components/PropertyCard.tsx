@@ -28,7 +28,7 @@ export default function PropertyCard({
           width={400}
   height={267}
   sizes="(max-width: 768px) 100vw, 400px"
-  quality={70}
+  quality={65}
   className="w-100"
   style={{
     aspectRatio: "3 / 2",
