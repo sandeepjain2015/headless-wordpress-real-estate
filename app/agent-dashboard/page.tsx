@@ -36,7 +36,7 @@ export default async function AgentDashboard() {
   }
 
   /**
-   * Check Agent role.
+   * Check Agent role
    */
   const isAgent = user.roles?.nodes?.some(
     (role) => role.name.toLowerCase() === "agent"
