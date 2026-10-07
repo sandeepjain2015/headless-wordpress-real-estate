@@ -11,11 +11,9 @@ export async function fetchGraphQL<T>(
 
   const headers: HeadersInit = {
     "Content-Type": "application/json",
+    Accept: "application/json",
   };
 
-  /**
-   * Add JWT authentication when token is available.
-   */
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
@@ -27,58 +25,71 @@ export async function fetchGraphQL<T>(
       query,
       variables,
     }),
-    cache: "no-store",
+
+    // Cache public requests, but never cache authenticated requests.
+    ...(token
+      ? { cache: "no-store" as const }
+      : {
+          next: {
+            revalidate: 60,
+          },
+        }),
   });
 
-  const result = await response.json();
+  // Read as text first so a 429/plain-text response doesn't crash JSON.parse.
+  const responseText = await response.text();
 
-  
-
-  /**
-   * HTTP error.
-   */
   if (!response.ok) {
+    console.error("GraphQL HTTP Error:", {
+      status: response.status,
+      statusText: response.statusText,
+      response: responseText,
+    });
+
     throw new Error(
-      `GraphQL HTTP error: ${response.status} ${response.statusText}`
+      `GraphQL HTTP error: ${response.status} ${response.statusText}${
+        responseText ? ` - ${responseText}` : ""
+      }`
     );
   }
 
-  /**
-   * GraphQL errors..
-   */
+  let result: {
+    data?: T;
+    errors?: Array<{
+      message?: string;
+      extensions?: {
+        debugMessage?: string;
+      };
+    }>;
+  };
+
+  try {
+    result = JSON.parse(responseText);
+  } catch {
+    console.error("Invalid GraphQL JSON response:", responseText);
+
+    throw new Error(
+      `GraphQL returned invalid JSON: ${responseText.slice(0, 300)}`
+    );
+  }
+
   if (result.errors?.length) {
     console.error(
       "GraphQL Errors:",
-      JSON.stringify(
-        result.errors,
-        null,
-        2
-      )
+      JSON.stringify(result.errors, null, 2)
     );
 
-    const errorMessage =
-      result.errors
-        .map(
-          (error: {
-            message?: string;
-            extensions?: {
-              debugMessage?: string;
-            };
-          }) => {
-            return (
-              error.extensions?.debugMessage ||
-              error.message ||
-              "Unknown GraphQL error"
-            );
-          }
-        )
-        .join(", ");
+    const errorMessage = result.errors
+      .map(
+        (error) =>
+          error.extensions?.debugMessage ||
+          error.message ||
+          "Unknown GraphQL error"
+      )
+      .join(", ");
 
     throw new Error(errorMessage);
   }
 
-  /**
-   * Return GraphQL data.
-   */
   return result.data as T;
 }
