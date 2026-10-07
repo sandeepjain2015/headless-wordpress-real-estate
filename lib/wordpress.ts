@@ -44,7 +44,7 @@ export async function fetchGraphQL<T>(
   }
 
   /**
-   * GraphQL errors.
+   * GraphQL errors..
    */
   if (result.errors?.length) {
     console.error(
