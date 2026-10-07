@@ -8,7 +8,7 @@ import FeaturedProperties from "@/sections/Properties/FeaturedProperties";
 import PropertyGrid from "@/sections/Properties/PropertyGrid";
 import { PageResponse } from "@/types/graphql";
 import { PropertiesResponse } from "@/types/property";
-
+export const dynamic = "force-dynamic";
 export default async function PropertiesPage() {
   
   const [pageData, propertyData] = await Promise.all([
