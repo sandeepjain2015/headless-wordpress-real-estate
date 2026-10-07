@@ -11,6 +11,7 @@ export async function fetchGraphQL<T>(
 
   const headers: HeadersInit = {
     "Content-Type": "application/json",
+    Accept: "application/json",
   };
 
   /**
@@ -27,19 +28,58 @@ export async function fetchGraphQL<T>(
       query,
       variables,
     }),
-    cache: "no-store",
+
+    // Important: allow Next.js/Vercel to cache public GraphQL requests.
+    next: {
+      revalidate: 60,
+    },
   });
 
-  const result = await response.json();
-
-  
+  /**
+   * Read response as text first.
+   * This prevents JSON.parse() from crashing when WordPress,
+   * hosting, firewall, or rate limiter returns plain text.
+   */
+  const responseText = await response.text();
 
   /**
-   * HTTP error.
+   * HTTP error / rate-limit response.
    */
   if (!response.ok) {
+    console.error("GraphQL HTTP Error:", {
+      status: response.status,
+      statusText: response.statusText,
+      url: API_URL,
+      response: responseText,
+    });
+
     throw new Error(
-      `GraphQL HTTP error: ${response.status} ${response.statusText}`
+      `GraphQL HTTP error: ${response.status} ${response.statusText}${
+        responseText ? ` - ${responseText}` : ""
+      }`
+    );
+  }
+
+  /**
+   * Parse JSON only after confirming the HTTP request succeeded.
+   */
+  let result: {
+    data?: T;
+    errors?: Array<{
+      message?: string;
+      extensions?: {
+        debugMessage?: string;
+      };
+    }>;
+  };
+
+  try {
+    result = JSON.parse(responseText);
+  } catch {
+    console.error("Invalid GraphQL JSON response:", responseText);
+
+    throw new Error(
+      `GraphQL returned an invalid JSON response: ${responseText.slice(0, 300)}`
     );
   }
 
@@ -49,30 +89,18 @@ export async function fetchGraphQL<T>(
   if (result.errors?.length) {
     console.error(
       "GraphQL Errors:",
-      JSON.stringify(
-        result.errors,
-        null,
-        2
-      )
+      JSON.stringify(result.errors, null, 2)
     );
 
-    const errorMessage =
-      result.errors
-        .map(
-          (error: {
-            message?: string;
-            extensions?: {
-              debugMessage?: string;
-            };
-          }) => {
-            return (
-              error.extensions?.debugMessage ||
-              error.message ||
-              "Unknown GraphQL error"
-            );
-          }
-        )
-        .join(", ");
+    const errorMessage = result.errors
+      .map((error) => {
+        return (
+          error.extensions?.debugMessage ||
+          error.message ||
+          "Unknown GraphQL error"
+        );
+      })
+      .join(", ");
 
     throw new Error(errorMessage);
   }
