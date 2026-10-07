@@ -12,6 +12,7 @@ type Props = {
     slug: string;
   }>;
 };
+// This page is dynamic and will be generated on the server for each request.
 export const dynamic = "force-dynamic";
 export default async function PropertyPage({ params }: Props) {
   const { slug } = await params;
