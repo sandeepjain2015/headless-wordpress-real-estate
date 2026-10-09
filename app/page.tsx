@@ -9,9 +9,9 @@ import AgentCTA from "@/components/AgentCTA/AgentCTA";
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      {/* <HeroSection /> */}
 
-    <PropertySection />
+    {/* <PropertySection /> */}
 
     <section className="features-1">
       <div className="container">
