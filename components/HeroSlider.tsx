@@ -9,7 +9,7 @@ import "swiper/css/autoplay";
 
 type HeroSlide = {
   sourceUrl: string;
-  altText?: string;
+  altText?: string | null;
 };
 
 export default function HeroSlider({

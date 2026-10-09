@@ -2,17 +2,21 @@ import { fetchGraphQL } from "@/lib/wordpress";
 import { GET_TESTIMONIALS_QUERY } from "@/graphql/testimonial";
 import TestimonialSlider from "./../../components/TestimonialSlider";
 import type { TestimonialsResponse } from "@/types/testimonial";
+import type { Testimonial } from "@/types/testimonial";
 
 type TestimonialSectionProps = {
   section_title: string;
+  testimonials?: Testimonial[];
 };
 
 export default async function TestimonialSection({
   section_title,
+  testimonials,
 }: TestimonialSectionProps) {
-  const data = await fetchGraphQL<TestimonialsResponse>(
-    GET_TESTIMONIALS_QUERY
-  );
+  const fetchedData = testimonials
+    ? null
+    : await fetchGraphQL<TestimonialsResponse>(GET_TESTIMONIALS_QUERY);
+  const items = testimonials ?? fetchedData?.testimonials.nodes ?? [];
 
   return (
     <div className="section sec-testimonials">
@@ -32,7 +36,7 @@ export default async function TestimonialSection({
         <div className="testimonial-slider-wrap">
           <div className="testimonial-slider">
             <TestimonialSlider
-              testimonials={data.testimonials.nodes}
+              testimonials={items}
             />
           </div>
         </div>

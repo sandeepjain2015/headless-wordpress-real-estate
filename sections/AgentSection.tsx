@@ -1,27 +1,7 @@
-import { fetchGraphQL } from "@/lib/wordpress";
-import { GET_AGENTS_QUERY } from "@/graphql/agents";
 import AgentCard from "@/components/AgentCard";
+import type { HomeAgent } from "@/types/home";
 
-type Agent = {
-  id: string;
-  title: string;
-  slug: string;
-  featuredImage?: {
-    node?: {
-      sourceUrl: string;
-      altText?: string;
-    };
-  };
-};
-
-type AgentsResponse = {
-  agents: {
-    nodes: Agent[];
-  };
-};
-export default async function AgentSection() {
-  const data = await fetchGraphQL<AgentsResponse>(GET_AGENTS_QUERY);
-  
+export default function AgentSection({ agents }: { agents: HomeAgent[] }) {
 
   return (
     <div className="section section-5 bg-light">
@@ -37,7 +17,7 @@ export default async function AgentSection() {
           </div>
         </div>
         <div className="row">
-        {data.agents.nodes.map((agent) => (
+        {agents.map((agent) => (
          <AgentCard key={agent.title} {...agent} />
         ))}
         </div>

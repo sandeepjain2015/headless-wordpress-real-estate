@@ -4,12 +4,18 @@ import TestimonialSection from "@/sections/Testimonial/TestimonialSection";
 import HeroSection from "@/sections/HeroSection";
 import AgentSection from "@/sections/AgentSection";
 import AgentCTA from "@/components/AgentCTA/AgentCTA";
-export default function Home() {
+import { fetchGraphQL } from "@/lib/wordpress";
+import { GET_HOME_QUERY } from "@/graphql/home";
+import type { HomeResponse } from "@/types/home";
+
+export default async function Home() {
+  const data = await fetchGraphQL<HomeResponse>(GET_HOME_QUERY);
+
   return (
     <>
-      <HeroSection />
+      <HeroSection hero={data.page?.homepage} />
 
-    {/* <PropertySection /> */}
+      <PropertySection properties={data.properties?.nodes ?? []} />
 
     <section className="features-1">
       <div className="container">
@@ -54,7 +60,10 @@ export default function Home() {
       </div>
     </section>
 
-   {/* <TestimonialSection section_title='Customer Says'/> */}
+   <TestimonialSection
+      section_title="Customer Says"
+      testimonials={data.testimonials?.nodes ?? []}
+    />
 
     <div className="section section-4 bg-light">
       <div className="container">
@@ -172,8 +181,8 @@ export default function Home() {
       </div>
     </div>
 
-    {/* <AgentCTA /> */}
-    {/* <AgentSection /> */}
+    <AgentSection agents={data.agents?.nodes ?? []} />
+    <AgentCTA />
     
     </>
   );

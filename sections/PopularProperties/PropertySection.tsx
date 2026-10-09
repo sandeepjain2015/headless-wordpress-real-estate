@@ -1,40 +1,7 @@
-import { fetchGraphQL } from "@/lib/wordpress";
-import { GET_PROPERTIES_QUERY } from "@/graphql/property";
 import PropertySlider from "../../components/PropertySlider";
-type Property = {
-  id: string;
-  title: string;
-  slug: string;
-  content?: string;
+import type { HomeProperty } from "@/types/home";
 
-  featuredImage?: {
-    node?: {
-      sourceUrl: string;
-      altText?: string;
-    };
-  };
-
-  propertyDetails?: {
-    price?: string;
-    address?: string;
-    city?: string;
-    state?: string;
-    bedrooms?: number;
-    bathrooms?: number;
-    area?: number;
-  };
-};
-
-type PropertiesResponse = {
-  properties: {
-    nodes: Property[];
-  };
-};
-
-export default async function PropertySection() {
-  const data = await fetchGraphQL<PropertiesResponse>(GET_PROPERTIES_QUERY);
-  console.log("Fetched properties data:", data); // Log the fetched data for debugging
-
+export default function PropertySection({ properties }: { properties: HomeProperty[] }) {
   return (
     <div className="section">
       <div className="container">
@@ -47,7 +14,7 @@ export default async function PropertySection() {
         </div>
 
         <PropertySlider
-          properties={data.properties.nodes}
+          properties={properties}
         />
       </div>
     </div>
