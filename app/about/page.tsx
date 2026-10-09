@@ -5,6 +5,7 @@ import "@/app/styles/gutenberg.css";
 import TestimonialSection from "@/sections/Testimonial/TestimonialSection";
 import type { PageResponse } from "@/types/graphql";
 import Image from "next/image";
+export const dynamic = "force-dynamic";
 export default async function AboutPage() {
 const data = await fetchGraphQL<PageResponse>(GET_PAGE, {
   uri: "about",
