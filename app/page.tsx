@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <HeroSection />
 
-    <PropertySection />
+    {/* <PropertySection /> */}
 
     <section className="features-1">
       <div className="container">
@@ -54,7 +54,7 @@ export default function Home() {
       </div>
     </section>
 
-   <TestimonialSection section_title='Customer Says'/>
+   {/* <TestimonialSection section_title='Customer Says'/> */}
 
     <div className="section section-4 bg-light">
       <div className="container">
@@ -172,8 +172,8 @@ export default function Home() {
       </div>
     </div>
 
-    <AgentCTA />
-    <AgentSection />
+    {/* <AgentCTA /> */}
+    {/* <AgentSection /> */}
     
     </>
   );
