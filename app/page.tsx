@@ -1,6 +1,4 @@
 import Image from "next/image";
-import HeroSlider from "@/components/HeroSlider";
-import TestimonialSlider from "@/components/TestimonialSlider";
 import PropertySection from "@/sections/PopularProperties/PropertySection";
 import TestimonialSection from "@/sections/Testimonial/TestimonialSection";
 import HeroSection from "@/sections/HeroSection";
@@ -9,7 +7,7 @@ import AgentCTA from "@/components/AgentCTA/AgentCTA";
 export default function Home() {
   return (
     <>
-      {/* <HeroSection /> */}
+      <HeroSection />
 
     <PropertySection />
 
@@ -174,8 +172,8 @@ export default function Home() {
       </div>
     </div>
 
-    {/* <AgentCTA /> */}
-    {/* <AgentSection /> */}
+    <AgentCTA />
+    <AgentSection />
     
     </>
   );
