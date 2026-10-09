@@ -11,7 +11,7 @@ export default function Home() {
     <>
       {/* <HeroSection /> */}
 
-    {/* <PropertySection /> */}
+    <PropertySection />
 
     <section className="features-1">
       <div className="container">
