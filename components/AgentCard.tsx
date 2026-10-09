@@ -1,22 +1,7 @@
 import Image from "next/image";
+import type { HomeAgent } from "@/types/home";
 
-type AgentProps = {
-  id?: string;
-  title: string;
-  content?: string;
-  featuredImage?: {
-    node?: {
-      sourceUrl: string;
-    };
-  };
-  agentDetails?: {
-    designation?: string;
-    twitterUrl?: string;
-    facebookUrl?: string;
-    linkedinUrl?: string;
-    instagramUrl?: string;
-  };
-};
+type AgentProps = HomeAgent;
 
 export default function AgentCard({
   title,
