@@ -3,7 +3,6 @@ import { GET_PAGE } from "@/graphql/page";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import type { PageResponse } from "@/types/graphql";
-export const dynamic = "force-dynamic";
 export default async function ContactPage() {
   const data = await fetchGraphQL<PageResponse>(GET_PAGE, {
     uri: "contact",
