@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import ServiceGrid from "@/sections/Services/ServiceGrid";
 import TestimonialSection from "@/sections/Testimonial/TestimonialSection";
 import { PageResponse } from "@/types/graphql";
+export const dynamic = "force-dynamic";
 export default async function ServicesPage() {
     const data = await fetchGraphQL<PageResponse>(GET_PAGE, {
     uri: "services",
