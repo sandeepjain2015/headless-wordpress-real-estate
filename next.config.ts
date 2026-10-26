@@ -1,3 +1,4 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -18,6 +19,12 @@ const nextConfig = {
         hostname: "secure.gravatar.com",
       },
     ],
+
+    // Serve modern image formats when supported by the browser
+    formats: ["image/avif", "image/webp"],
+
+    // Allow the quality values used by your Image components
+    qualities: [65, 75],
   },
 };
 

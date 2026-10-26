@@ -34,8 +34,8 @@ export default function HeroSlider({
   preload={index === 0}
   loading={index === 0 ? "eager" : "lazy"}
   fetchPriority={index === 0 ? "high" : undefined}
-  sizes="100vw"
-  quality={75}
+  sizes="(max-width: 768px) 100vw, 400px"
+  quality={65}
   style={{
     objectFit: "cover",
   }}
