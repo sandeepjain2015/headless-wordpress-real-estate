@@ -16,11 +16,11 @@ export default function PropertySlider({ properties }: { properties: any[] }) {
                 disableOnInteraction: false,
             }}
         >
-            {properties.map((property) => (
-                <SwiperSlide key={property.featuredImage?.node?.uri || property.id}>
-                    <PropertyCard {...property} />
-                </SwiperSlide>
-            ))}
+            {properties.map((property, index) => (
+  <SwiperSlide key={property.featuredImage?.node?.uri || property.id}>
+    <PropertyCard {...property} index={index} />
+  </SwiperSlide>
+))}
         </Swiper>
     )
 }

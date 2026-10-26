@@ -6,12 +6,14 @@ export default function PropertyCard({
   featuredImage,
   propertyDetail,
   title,
-  slug
+  slug,
+  index
 }: {
   featuredImage: any;
   propertyDetail: any;
   title: string;
   slug: string;
+  index: number;
 }) {
   const image =
     featuredImage?.node?.sourceUrl ?? "/images/no-property-image.webp";
@@ -26,6 +28,7 @@ export default function PropertyCard({
           src={image}
           alt={title}
           width={400}
+          loading={index === 0 ? "eager" : "lazy"}
   height={267}
   sizes="(max-width: 768px) 100vw, 400px"
   quality={50}
