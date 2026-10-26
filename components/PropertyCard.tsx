@@ -28,10 +28,12 @@ export default function PropertyCard({
           src={image}
           alt={title}
           width={400}
-          loading={index === 0 ? "eager" : "lazy"}
-  height={267}
-  sizes="(max-width: 768px) 100vw, 400px"
-  quality={50}
+      height={267}
+      sizes="(max-width: 768px) 100vw, 400px"
+      quality={40}
+      loading={index === 0 ? "eager" : "lazy"}
+      fetchPriority={index === 0 ? "high" : undefined}
+  
   className="w-100"
   style={{
     aspectRatio: "3 / 2",
